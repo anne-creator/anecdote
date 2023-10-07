@@ -9,15 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "aws-sdk": "^2.1467.0",
+    "cors": "^2.8.5",
+    "from": "^0.1.7",
+    "import": "^0.0.6",
+    "next": "latest",
+    "nextjs-cors": "^2.1.2",
     "react": "latest",
-    "react-dom": "latest",
-    "next": "latest"
+    "react-dom": "latest"
   },
   "devDependencies": {
+    "@types/node": "20.8.0",
+    "@types/react": "18.2.24",
     "autoprefixer": "latest",
-    "postcss": "latest",
-    "tailwindcss": "latest",
     "eslint": "latest",
-    "eslint-config-next": "latest"
+    "eslint-config-next": "latest",
+    "postcss": "latest",
+    "tailwindcss": "latest"
   }
 }
