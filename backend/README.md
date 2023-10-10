@@ -14,6 +14,13 @@ pnpm dev
 bun dev
 ```
 
+## confidential
+
+the access key was stored in side the .aws locally(on my mac),
+so when the project is trying to connect aws, aws-sdk will look up the .aws file locally
+for confidential purpose
+
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.

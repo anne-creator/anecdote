@@ -1,5 +1,5 @@
-const AWS = require('aws-sdk');
-AWS.config.update({ region: 'us-east-1' });
+import AWS from '../../aws-config.js';
+
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 export default function handler(req, res) {
@@ -7,7 +7,7 @@ export default function handler(req, res) {
     {
       TableName: 'AnecdoteTask',
       Key: {
-        TaskId: 'putTest',
+        TaskId: 'itself',
       },
     },
     (err, data) => {

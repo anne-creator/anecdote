@@ -1,14 +1,13 @@
-const AWS = require('aws-sdk');
-AWS.config.update({ region: 'us-east-1' });
+import AWS from '../../aws-config.js';
 const docClient = new AWS.DynamoDB.DocumentClient();
 
-export const describeAnecdoteTable = (req, res) => {
+export default function handler(req, res) {
   docClient.put(
     {
       TableName: 'AnecdoteTask',
       Item: {
         TaskId: 'req',
-        a: 'as',
+        aws: 'aws-config',
       },
     },
     (err, data) => {
@@ -19,4 +18,4 @@ export const describeAnecdoteTable = (req, res) => {
       }
     },
   );
-};
+}

@@ -1,9 +1,4 @@
-//the access key was stored in side the .aws locally(on my mac),
-//so when the project is trying to connect aws, terminal? will look up the .aws file locally
-//for confidential purpose
-
-const AWS = require('aws-sdk'); //import aws-sdk interface to js language
-AWS.config.update({ region: 'us-east-1' });
+import AWS from '../../aws-config.js';
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 export default function handler(req, res) {
