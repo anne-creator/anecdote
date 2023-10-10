@@ -12,9 +12,8 @@ export default function handler(req, res) {
     },
     (err, data) => {
       if (err) {
-        console.log(err);
+        res.status(500).json({ error: 'Internal Server Error' });
       } else {
-        console.log(data);
         res.status(200).json('item has been deleted');
       }
     },

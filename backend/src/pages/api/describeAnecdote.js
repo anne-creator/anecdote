@@ -3,15 +3,21 @@
 //for confidential purpose
 
 const AWS = require('aws-sdk'); //import aws-sdk interface to js language
-AWS.config.update({ region: 'us-east-1' }); //?update to region 'us-east-1',so every project in aws is region specific?
-const docClient = new AWS.DynamoDB.DocumentClient(); //?creates an instance of the DynamoDB DocumentClient class
+AWS.config.update({ region: 'us-east-1' });
+const docClient = new AWS.DynamoDB.DocumentClient();
 
 export default function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  const { TaskId } = req.query;
+
   docClient.get(
     {
       TableName: 'AnecdoteTask',
       Key: {
-        TaskId: 'test',
+        TaskId: TaskId,
       },
     },
     (err, data) => {

@@ -13,7 +13,7 @@ export const describeAnecdoteTable = (req, res) => {
     },
     (err, data) => {
       if (err) {
-        console.log(err);
+        res.status(500).json({ error: 'Internal Server Error' });
       } else {
         res.status(200).json('item has been put');
       }
