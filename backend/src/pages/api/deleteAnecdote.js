@@ -1,6 +1,4 @@
-import AWS from '../../aws-config.js';
-
-const docClient = new AWS.DynamoDB.DocumentClient();
+import { docClient } from '../../dbconfig.js';
 
 export default function handler(req, res) {
   docClient.delete(

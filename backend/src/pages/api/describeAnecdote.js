@@ -1,12 +1,13 @@
-import AWS from '../../aws-config.js';
-const docClient = new AWS.DynamoDB.DocumentClient();
+//use taskId to pull an item from dynamoDB table
+import { docClient } from '../../dbconfig.js';
 
 export default function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  const { TaskId } = req.query;
+  // const { TaskId } = req.query;
+  const TaskId = '1';
 
   docClient.get(
     {
@@ -19,7 +20,7 @@ export default function handler(req, res) {
       if (err) {
         console.log(err);
       } else {
-        res.status(200).json(data);
+        return res.status(200).json(data.Item.wordList.values);
       }
     },
   );

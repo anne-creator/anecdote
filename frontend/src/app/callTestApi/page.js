@@ -15,7 +15,7 @@ export default function callTestApi() {
 
   const handleClick = async () => {
     axios
-      .get('http://localhost:3007/api/describeAnecdote', config)
+      .get('http://localhost:3000/api/describeAnecdote', config)
       .then((response) => {
         setResultData(response.data);
       })
