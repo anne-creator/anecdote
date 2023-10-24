@@ -15,6 +15,7 @@
     "import": "^0.0.6",
     "next": "latest",
     "nextjs-cors": "^2.1.2",
+    "openai": "^4.12.4",
     "react": "latest",
     "react-dom": "latest"
   },

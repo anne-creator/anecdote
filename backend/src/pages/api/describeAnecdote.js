@@ -5,10 +5,8 @@ export default function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
   // const { TaskId } = req.query;
   const TaskId = '1';
-
   docClient.get(
     {
       TableName: 'AnecdoteTask',
