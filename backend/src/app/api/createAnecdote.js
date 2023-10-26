@@ -1,12 +1,19 @@
+//put an item into the table
 import { docClient } from '../../dbconfig.js';
 
 export default function handler(req, res) {
+  //AnectdoteId, userId, status (SUCCESS, IN_PROGRESS, FAILED), createdTime, lastUpdatedTime, wordList, s3Url.
+  const { AnectdoteId, status, createdTime, lastUpdatedTime, wordList, s3Url } = req.query;
   docClient.put(
     {
       TableName: 'AnecdoteTask',
       Item: {
-        TaskId: 'req',
-        aws: 'aws-config',
+        AnectdoteId,
+        status,
+        createdTime,
+        lastUpdatedTime,
+        wordList,
+        s3Url,
       },
     },
     (err, data) => {

@@ -7,9 +7,9 @@ const OpenAI = require('openai');
 const openai = new OpenAI();
 
 export default async function chatGPTPrompt(req, res) {
-  // const { wordList } = req.query;
+  const { wordList } = req.query;
 
-  const wordList = 'circus, computer, coral reef, coffee machine, terminology';
+  // const wordList = 'circus, computer, coral reef, coffee machine, terminology';
 
   //call ChatGPt to get the story
   const response = await openai.chat.completions.create({
@@ -17,7 +17,7 @@ export default async function chatGPTPrompt(req, res) {
     messages: [
       {
         role: 'system',
-        content: 'You are a story writer that mostly use high frequency words to tell stories.',
+        content: wordList,
       },
       {
         role: 'user',
