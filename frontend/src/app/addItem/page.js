@@ -28,7 +28,7 @@ export default function addItem() {
       .get('http://localhost:3001/api/createAnecdote', config)
       .then((response) => {
         console.log(response);
-        router.push('/main');
+        router.push('/');
       })
       .catch((error) => {
         console.log(error);
@@ -56,7 +56,13 @@ export default function addItem() {
                 <div className="mb-4 h-max">
                   <Textarea placeholder="Max 10 words" color="gray" size="lg" name="message" />
                 </div>
-                <Button onClick={handleClick} size="lg" color="gray" className="mt-6" fullWidth>
+                <Button
+                  onClick={() => router.push('/')}
+                  size="lg"
+                  color="gray"
+                  className="mt-6"
+                  fullWidth
+                >
                   Generaet a story
                 </Button>
               </form>
