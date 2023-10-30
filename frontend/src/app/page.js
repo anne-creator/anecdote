@@ -18,6 +18,7 @@ import {
 } from '@material-tailwind/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 // tabs mock data
 // id:<string>
@@ -86,6 +87,7 @@ import { useEffect, useState } from 'react';
 export default function main() {
   const [tableRows, setTableRows] = useState([]);
   const TABLE_HEAD = ['Word List', 'Status', 'Story Link'];
+  const router = useRouter();
 
   const getTableRows = async () => {
     axios
@@ -120,8 +122,12 @@ export default function main() {
               <Button variant="outlined" size="sm">
                 view all
               </Button>
-              <Button className="flex items-center gap-3" size="sm">
-                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add word list
+              <Button
+                onClick={() => router.push('/addItem')}
+                className="flex items-center gap-3"
+                size="sm"
+              >
+                Add Word List
               </Button>
             </div>
           </div>
