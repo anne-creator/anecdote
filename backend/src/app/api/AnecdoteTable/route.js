@@ -4,7 +4,9 @@ import { docClient } from '../../../dbconfig.js';
 const TABLE_NAME = 'AnecdoteTask';
 
 // list table
-export async function GET() {
+export async function GET(request) {
+  const { id } = await request.json();
+  console.log(id);
   const params = {
     TableName: TABLE_NAME,
   };
@@ -56,7 +58,6 @@ export async function PUT(request) {
   try {
     const res = await docClient.put(params).promise();
     return Response.json(`id: ${AnectdoteId} has been put in to the dynamodb table ${TABLE_NAME}`);
-    return Response.json(`sucess`);
   } catch {
     return Response.error('Internal Server Error');
   }
