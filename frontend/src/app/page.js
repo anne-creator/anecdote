@@ -88,12 +88,12 @@ export default function main() {
   const [tableRows, setTableRows] = useState([]);
   const TABLE_HEAD = ['Word List', 'Status', 'Story Link'];
   const router = useRouter();
-
+  const url = process.env.URL;
   const getTableRows = async () => {
     axios
-      .get('http://localhost:3001/api/listAnecdote')
+      .get('http://localhost:3007/api/listAnecdote')
       .then((response) => {
-        setTableRows(response.data.Items);
+        setTableRows(response.data.res.Items);
       })
       .catch((error) => {
         console.log(error);
@@ -168,7 +168,7 @@ export default function main() {
               </tr>
             </thead>
             <tbody>
-              {tableRows.map(({ TaskId, wordList, status, s3Url }, index) => {
+              {tableRows?.map(({ TaskId, wordList, status, s3Url }, index) => {
                 const isLast = index === tableRows.length - 1;
                 const classes = isLast ? 'p-4' : 'p-4 border-b border-blue-gray-50';
 
@@ -176,7 +176,7 @@ export default function main() {
                   <tr key={TaskId}>
                     <td className={classes}>
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {wordList.map((x) => (
+                        {wordList?.map((x) => (
                           <span>{x}, </span>
                         ))}
                       </Typography>
