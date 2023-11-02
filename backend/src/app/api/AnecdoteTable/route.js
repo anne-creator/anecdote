@@ -4,9 +4,7 @@ import { docClient } from '../../../dbconfig.js';
 const TABLE_NAME = 'AnecdoteTask';
 
 // list table
-export async function GET(request) {
-  const { id } = await request.json();
-  console.log(id);
+export async function GET() {
   const params = {
     TableName: TABLE_NAME,
   };
@@ -19,7 +17,6 @@ export async function GET(request) {
 }
 
 //delete table
-//! remember to check if request is actually needed
 export async function DELETE(request) {
   const { id } = await request.json();
   if (!id) return Response.error('id is requried');
@@ -38,8 +35,7 @@ export async function DELETE(request) {
   }
 }
 
-//! what if the items passed by frontend is partially exsist
-export async function PUT(request) {
+export async function POST(request) {
   const { AnectdoteId, status, createdTime, lastUpdatedTime, wordList, s3Url } =
     await request.json();
 
@@ -62,11 +58,3 @@ export async function PUT(request) {
     return Response.error('Internal Server Error');
   }
 }
-
-// res.setHeader('Access-Control-Allow-Origin', '*');
-// res.setHeader('Access-Control-Allow-Methods', '*');
-// res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-// const { taskId } = req.query;
-// console.log(TaskName);
-//AnecdoteTask

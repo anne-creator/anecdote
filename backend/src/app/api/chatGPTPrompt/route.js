@@ -3,44 +3,35 @@
  * output: the story
  */
 
-const OpenAI = require('openai');
-const openai = new OpenAI();
 import { headers } from 'next/headers';
+import { docClient, TABLE_NAME } from '../../../dbconfig.js';
+import generateStory from '../../../utils/generateStory.js';
 
-export async function GET(request) {
-  // const { wordList } = await request.json();
+export async function GET() {
   const headersList = headers();
   const id = await headersList.get('id');
-  console.log(id);
+  const params = {
+    TableName: TABLE_NAME,
+    Key: {
+      TaskId: id,
+    },
+  };
 
-  const wordList = 'circus, computer, coral reef, coffee machine, terminology';
+  //get the wordList from dynamo DB table
+  const response = await docClient.get(params).promise();
+  const wordList = await response.Item.wordList;
 
   try {
-    const data = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        {
-          role: 'system',
-          content: wordList,
-        },
-        {
-          role: 'user',
-          content: wordList,
-        },
-      ],
-      temperature: 1.71,
-      max_tokens: 100,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-    });
+    const res = await generateStory(wordList);
 
-    const res = await data.choices[0].message.content;
-    return Response.json(res);
-  } catch {
+    if (res instanceof Error) {
+      console.error(res); // Log the error
+      return Response.error('An error occurred during story generation');
+    } else {
+      return Response.json(res);
+    }
+  } catch (error) {
+    console.error(error); // Log other errors
     return Response.error('Internal Server Error');
   }
-
-  // console.log(response.choices[0].message.content);
-  // return res.status(200).json(response.choices[0].message.content);
 }
