@@ -1,6 +1,4 @@
 'use client';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { PencilIcon, UserPlusIcon } from '@heroicons/react/24/solid';
 import {
   Card,
   CardHeader,
@@ -19,84 +17,23 @@ import {
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-
-// tabs mock data
-// id:<string>
-// wordlist:<set>
-// status:<String>: "tobetranslated" "sucess" "failed " could I use numbers for the status?
-// Timestamp
-// const TABS = [
-//   {
-//     label: 'All',
-//     value: 'all',
-//   },
-//   {
-//     label: 'translated',
-//     value: 'unTranslated',
-//   },
-//   {
-//     label: 'Not Translated',
-//     value: 'unTranslated',
-//   },
-// ];
-// const tableRows = [
-//   {
-//     TaskID: '1',
-//     wordList: [
-//       'course',
-//       'student',
-//       'room',
-//       'animals',
-//       'food',
-//       'computer',
-//       'local',
-//       'presentation',
-//       'term',
-//       'check',
-//       'family',
-//     ],
-//     status: 'success',
-//     timeStamp: '1697218407',
-//   },
-//   {
-//     TaskID: '2',
-//     wordList: ['Avatar', 'stamp', 'layout', 'coffee machine', 'piano', 'computer', 'cat'],
-//     status: 'tobeTranslated',
-//     timeStamp: '169721802',
-//   },
-//   {
-//     TaskID: '3',
-//     wordList: [
-//       'cupboard',
-//       'student',
-//       'room',
-//       'animals',
-//       'food',
-//       'computer',
-//       'local',
-//       'presentation',
-//       'term',
-//       'check',
-//       'family',
-//     ],
-//     status: 'failed',
-//     timeStamp: '1697218403',
-//   },
-// ];
+const url = process.env.URL;
+console.log(`${url}/api/AnecdoteTable`);
 
 export default function main() {
   const [tableRows, setTableRows] = useState([]);
   const TABLE_HEAD = ['Word List', 'Status', 'Story Link'];
   const router = useRouter();
-  const url = process.env.URL;
+
   const getTableRows = async () => {
+    console.log('generate one time');
     axios
-      .get('http://localhost:3007/api/listAnecdote')
+      .get('http://localhost:3003/api/AnecdoteTable')
       .then((response) => {
         setTableRows(response.data.res.Items);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(`fail to get table rows with error: ${error}`);
       });
   };
 
@@ -112,16 +49,10 @@ export default function main() {
           <div className="mb-8 flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-                Table list
+                Story Task History
               </Typography>
-              {/* <Typography color="gray" className="mt-1 font-normal">
-              See information about all members
-            </Typography> */}
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <Button variant="outlined" size="sm">
-                view all
-              </Button>
               <Button
                 onClick={() => router.push('/addItem')}
                 className="flex items-center gap-3"
@@ -131,22 +62,6 @@ export default function main() {
               </Button>
             </div>
           </div>
-
-          {/* tabs */}
-          {/* <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <Tabs value="all" className="w-full md:w-max">
-            <TabsHeader>
-              {TABS.map(({ label, value }) => (
-                <Tab key={value} value={value}>
-                  &nbsp;&nbsp;{label}&nbsp;&nbsp;
-                </Tab>
-              ))}
-            </TabsHeader>
-          </Tabs>
-          <div className="w-full md:w-72">
-            <Input label="Search" icon={<MagnifyingGlassIcon className="h-5 w-5" />} />
-          </div>
-        </div> */}
         </CardHeader>
 
         {/* the table */}
@@ -169,6 +84,7 @@ export default function main() {
             </thead>
             <tbody>
               {tableRows?.map(({ TaskId, wordList, status, s3Url }, index) => {
+                console.log(`this should only appear onces`);
                 const isLast = index === tableRows.length - 1;
                 const classes = isLast ? 'p-4' : 'p-4 border-b border-blue-gray-50';
 
@@ -176,9 +92,14 @@ export default function main() {
                   <tr key={TaskId}>
                     <td className={classes}>
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {wordList?.map((x) => (
-                          <span>{x}, </span>
-                        ))}
+                        {typeof wordList === 'string' ? (
+                          <span>{wordList}</span>
+                        ) : (
+                          wordList?.map((x, index) => <span key={index}>{x}, </span>)
+                        )}
+                        {/* {wordList?.map((x, index) => (
+                          <span key={index}>{x}, </span>
+                        ))} */}
                       </Typography>
                     </td>
                     <td className={classes}>
@@ -198,19 +119,6 @@ export default function main() {
             </tbody>
           </table>
         </CardBody>
-        {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 10
-        </Typography>
-        <div className="flex gap-2">
-          <Button variant="outlined" size="sm">
-            Previous
-          </Button>
-          <Button variant="outlined" size="sm">
-            Next
-          </Button>
-        </div>
-      </CardFooter> */}
       </Card>
     </>
   );

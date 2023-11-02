@@ -20,7 +20,7 @@ const generateStory = async (wordList) => {
         },
       ],
       temperature: 1.71,
-      max_tokens: 100,
+      max_tokens: 10,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,

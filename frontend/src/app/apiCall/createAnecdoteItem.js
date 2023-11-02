@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const createAnecdoteItem = async (config) => {
   axios
-    .get('http://localhost:3000/api/listAnecdote', config)
+    .post('http://localhost:3002/api/AnectdoteTable', config)
     .then((response) => {
       setAnecdoteTaskData(response.data);
     })
