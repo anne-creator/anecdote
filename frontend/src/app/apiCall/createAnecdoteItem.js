@@ -1,8 +1,8 @@
 import axios from 'axios';
-
+import URL from '../../../config.js';
 const createAnecdoteItem = async (config) => {
   axios
-    .post('http://localhost:3002/api/AnectdoteTable', config)
+    .post(`${URL}/api/AnectdoteTable`, config)
     .then((response) => {
       setAnecdoteTaskData(response.data);
     })

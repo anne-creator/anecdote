@@ -18,7 +18,7 @@ export default function addItem() {
       createdTime: Date.now(),
       lastUpdatedTime: Date.now(),
       wordList: inputData,
-      s3Url: uuid.v4(),
+      s3Url: 'Has not been generated',
     },
   };
   console.log(config.params);

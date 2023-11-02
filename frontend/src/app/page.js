@@ -17,8 +17,7 @@ import {
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-const url = process.env.URL;
-console.log(`${url}/api/AnecdoteTable`);
+import url from './../../config.js';
 
 export default function main() {
   const [tableRows, setTableRows] = useState([]);
@@ -26,9 +25,8 @@ export default function main() {
   const router = useRouter();
 
   const getTableRows = async () => {
-    console.log('generate one time');
     axios
-      .get('http://localhost:3003/api/AnecdoteTable')
+      .get(`${url}/api/AnecdoteTable`)
       .then((response) => {
         setTableRows(response.data.res.Items);
       })
