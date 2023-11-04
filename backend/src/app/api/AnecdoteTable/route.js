@@ -16,7 +16,7 @@ export async function GET() {
   }
 }
 
-//delete table
+//delete items in table
 export async function DELETE(request) {
   const { id } = await request.json();
   if (!id) return Response.error('id is requried');
@@ -35,15 +35,15 @@ export async function DELETE(request) {
   }
 }
 
+// This is not being used right now
 export async function POST(request) {
-  const { AnectdoteId, status, createdTime, lastUpdatedTime, wordList, s3Url } =
-    await request.json();
-
+  const { TaskId, status, createdTime, lastUpdatedTime, wordList, s3Url } = await request.json();
+  console.log(TaskId);
   const params = {
     TableName: TABLE_NAME,
     Item: {
-      TaskId: AnectdoteId,
-      status,
+      TaskId,
+      status: 'success',
       createdTime,
       lastUpdatedTime,
       wordList,
@@ -53,7 +53,7 @@ export async function POST(request) {
 
   try {
     const res = await docClient.put(params).promise();
-    return Response.json(`id: ${AnectdoteId} has been put in to the dynamodb table ${TABLE_NAME}`);
+    return Response.json(`id: ${TaskId} has been put in to the dynamodb table ${TABLE_NAME}`);
   } catch {
     return Response.error('Internal Server Error');
   }

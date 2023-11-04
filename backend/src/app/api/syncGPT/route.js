@@ -2,44 +2,34 @@
  * A API server that call chatGPT to generate story.
  * if success, return the generated story
  * if failed: tell the user it has been faild
- * * input:  a task created by frontend
+ * * input:  a task created by frontend addIem 'generate a story button'
  * * output: a task with generated story
  */
-
-import { headers } from 'next/headers';
-import { docClient, TABLE_NAME } from '../../../dbconfig.js';
+import { NextRequest, NextResponse } from 'next/server';
 import generateStory from '../../../utils/generateStory.js';
 
-export async function GET() {
-  const headersList = headers();
-  const id = await headersList.get('id');
-  if (!id) return Response.error('id Required');
-
-  const params = {
-    TableName: TABLE_NAME,
-    Key: {
-      TaskId: id,
-    },
-  };
-
-  //get the wordList from dynamo DB table
-  const task = await docClient.get(params).promise();
-  const wordList = await task.Item.wordList;
-
+export async function GET(request) {
+  const wordList = request.nextUrl.searchParams.get('wordList');
   if (!wordList) Response.error('wordList is empty');
+  console.log(wordList);
 
-  //call GPT to generate story
   try {
     const story = await generateStory(wordList);
 
     if (story instanceof Error) {
-      console.error(res); // Log the error
+      console.error('story is an error'); // Log the error
       return Response.error('An error occurred during story generation');
     }
 
-    return Response.json(story);
+    return NextResponse.json(story, {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      },
+    });
   } catch (error) {
-    console.error(error); // Log other errors
     return Response.error('Internal Server Error');
   }
 }

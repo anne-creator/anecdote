@@ -7,6 +7,7 @@ import { headers } from 'next/headers';
 import { docClient, TABLE_NAME } from '../../../dbconfig.js';
 import generateStory from '../../../utils/generateStory.js';
 
+// This is not being used right now
 export async function GET() {
   const headersList = headers();
   const id = await headersList.get('id');

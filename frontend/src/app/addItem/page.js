@@ -4,35 +4,46 @@ import { useState } from 'react';
 const uuid = require('uuid');
 import { useRouter } from 'next/navigation';
 import { Button, Typography, Card, Input, Textarea, Checkbox } from '@material-tailwind/react';
-
+import URL from '../../../config';
+console.log(URL);
 export default function addItem() {
   const [inputData, setInputData] = useState('');
+  const [task, setTask] = useState('');
+  const [ifSuccess, setIfSuccess] = useState(false);
+  const [story, setStory] = useState('');
   console.log(inputData);
   const router = useRouter();
 
-  // Define optional config for the request (headers, query parameters, etc.)
-  const config = {
-    params: {
-      AnectdoteId: uuid.v4(),
-      status: 'SUBMITTED',
-      createdTime: Date.now(),
-      lastUpdatedTime: Date.now(),
-      wordList: inputData,
-      s3Url: 'Has not been generated',
-    },
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   };
-  console.log(config.params);
 
-  const handleClick = async () => {
-    axios
-      .get('http://localhost:3001/api/createAnecdote', config)
-      .then((response) => {
-        console.log(response);
-        router.push('/');
-      })
-      .catch((error) => {
-        console.log(error);
+  // Define optional config for the request (headers, query parameters, etc.)
+
+  const handleSubmit = async (e) => {
+    // e.preventDefualt();
+    console.log('ran here');
+    try {
+      const response = await axios.get(`http://localhost:3008/api/syncGPT?wordList=${inputData}`);
+      const story = await response.data;
+      const res = await axios.post(`http://localhost:3008/api/AnecdoteTable`, {
+        TaskId: uuid.v4(),
+        status: ifSuccess,
+        createdTime: Date.now(),
+        lastUpdatedTime: Date.now(),
+        wordList: inputData,
+        s3Url: story,
       });
+      console.log(story);
+      console.log('succefully post');
+    } catch (err) {
+      alert('story generator failed, re-try it');
+      console.log(err.response.data);
+    }
+
+    router.push('/');
   };
 
   return (
@@ -52,20 +63,21 @@ export default function addItem() {
               <Typography variant="lead" className="mb-16 !text-gray-500">
                 Put comma between words
               </Typography>
-              <form action="#">
-                <div className="mb-4 h-max">
-                  <Textarea placeholder="Max 10 words" color="gray" size="lg" name="message" />
-                </div>
-                <Button
-                  onClick={() => router.push('/')}
-                  size="lg"
+              {/* <form onSubmit={handleSubmit} action="#"> */}
+              <div className="mb-4 h-max">
+                <Textarea
+                  value={inputData}
+                  onChange={(e) => setInputData(e.target.value)}
+                  placeholder="Max 10 words"
                   color="gray"
-                  className="mt-6"
-                  fullWidth
-                >
-                  Generaet a story
-                </Button>
-              </form>
+                  size="lg"
+                  name="message"
+                />
+              </div>
+              <Button onClick={handleSubmit} size="lg" color="gray" className="mt-6" fullWidth>
+                generate a story
+              </Button>
+              {/* </form> */}
             </div>
           </Card>
         </div>
