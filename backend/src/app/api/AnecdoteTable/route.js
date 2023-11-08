@@ -35,14 +35,15 @@ export async function DELETE(request) {
   }
 }
 
-// This is not being used right now
 export async function POST(request) {
-  const { TaskId, status, createdTime, lastUpdatedTime, wordList, s3Url } = await request.json();
-  console.log(TaskId);
+  const { TaskId, userId, status, createdTime, lastUpdatedTime, wordList, s3Url } =
+    await request.json();
+  console.log('get called');
   const params = {
     TableName: TABLE_NAME,
     Item: {
       TaskId,
+      userId,
       status: 'success',
       createdTime,
       lastUpdatedTime,

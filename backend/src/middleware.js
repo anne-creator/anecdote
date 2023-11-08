@@ -10,12 +10,10 @@ export function middleware(request) {
   // You can also set request headers in NextResponse.rewrite
   const response = NextResponse.next({
     request: {
-      // New request headers
       headers: requestHeaders,
     },
   });
 
-  // Set a new response header `x-hello-from-middleware2`
   response.headers.set('x-hello-from-middleware2', 'hello');
   console.log('this middleware runs');
 

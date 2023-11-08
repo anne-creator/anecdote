@@ -2,7 +2,7 @@
  * A API server that call chatGPT to generate story.
  * if success, return the generated story
  * if failed: tell the user it has been faild
- * * input:  a task created by frontend addIem 'generate a story button'
+ * * input:  a wordlist created by frontend addIem 'generate a story button'
  * * output: a task with generated story
  */
 import { NextRequest, NextResponse } from 'next/server';
