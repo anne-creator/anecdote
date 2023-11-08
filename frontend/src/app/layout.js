@@ -10,9 +10,9 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          {/* <Header /> */}
+          <Header />
           <main className=" w-full bg-blue-100">
-            <div className="mt-20 ">{children}</div>
+            <div>{children}</div>
           </main>
         </body>
       </html>
