@@ -22,7 +22,7 @@ import { useUser } from '@clerk/nextjs';
 
 export default function main() {
   //auth
-  const { isLoaded, isSignedIn } = useUser();
+  const { isLoaded, isSignedIn, user } = useUser();
   if (!isLoaded || !isSignedIn) {
     return null;
   }
@@ -31,9 +31,10 @@ export default function main() {
   const TABLE_HEAD = ['Word List', 'Status', 'Story Link'];
   const router = useRouter();
 
+  console.log(user.id);
   const getTableRows = async () => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable`)
+      .get(`${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable?userId=${user.id}`)
       .then((response) => {
         setTableRows(response.data.res.Items);
       })

@@ -12,13 +12,10 @@ export default function addItem() {
   if (!isLoaded || !isSignedIn) {
     return null;
   }
-  console.log(`url: ${process.env.NEXT_PUBLIC_URL}`);
-
   const [inputData, setInputData] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e) => {
-    console.log(`user: ${user.id}`);
     try {
       let status = 'SUBMITTED';
       let story = '';
@@ -27,8 +24,6 @@ export default function addItem() {
           `${process.env.NEXT_PUBLIC_URL}/api/syncGPT?wordList=${inputData}`,
         );
         story = await response.data;
-        console.log(`story: ${story}`);
-        console.log(`url: ${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable`);
         status = 'COMPLETED';
       } catch (err) {
         console.log('ChatGPT called failed, inserting the metadata anyways.');
@@ -48,7 +43,7 @@ export default function addItem() {
       console.log(err);
       alert('story generator failed, re-try it');
     }
-    router.push('/');
+    router.push('/AnecdoteTable');
   };
 
   return (

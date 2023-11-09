@@ -11,7 +11,6 @@ import generateStory from '../../../utils/generateStory.js';
 export async function GET(request) {
   const wordList = request.nextUrl.searchParams.get('wordList');
   if (!wordList) Response.error('wordList is empty');
-  console.log(wordList);
 
   try {
     const story = await generateStory(wordList);

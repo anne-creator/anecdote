@@ -7,7 +7,7 @@ const Header = async () => {
 
   return (
     <>
-      <nav>
+      <nav className="flex justify-end items-center">
         {/* <UserButton afterSignOutUrl="/" /> */}
         <SignedOut>
           <Link href="/sign-up">
