@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 const uuid = require('uuid');
 import { useRouter } from 'next/navigation';
-import { Button, Typography, Card, Input, Textarea, Checkbox } from '@material-tailwind/react';
+import { Button, Typography, Card, Textarea } from '@material-tailwind/react';
 import { useUser } from '@clerk/nextjs';
 
 export default function addItem() {
@@ -19,6 +19,9 @@ export default function addItem() {
     try {
       let status = 'SUBMITTED';
       let story = '';
+      let link = '';
+      const taskId = uuid.v4();
+      //generate story from chatGPT
       try {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_URL}/api/syncGPT?wordList=${inputData}`,
@@ -29,14 +32,27 @@ export default function addItem() {
         console.log('ChatGPT called failed, inserting the metadata anyways.');
       }
 
+      //put story to s3 bucket and returned a downloadable link
+      try {
+        const bucketRes = await axios.post(`${process.env.NEXT_PUBLIC_URL}/api/s3Bucket`, {
+          taskId,
+          story,
+        });
+        link = await bucketRes.data;
+        console.log(`link is: ${link}`);
+      } catch (err) {
+        console.log(`s3 err: ${err}`);
+      }
+
+      //put new task to db table
       const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable`, {
-        TaskId: uuid.v4(),
+        TaskId: taskId,
         userId: user.id,
         status: status,
         createdTime: Date.now(),
         lastUpdatedTime: Date.now(),
         wordList: inputData,
-        s3Url: story,
+        s3Url: link,
       });
       console.log('succefully post');
     } catch (err) {

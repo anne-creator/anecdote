@@ -15,7 +15,5 @@ export function middleware(request) {
   });
 
   response.headers.set('x-hello-from-middleware2', 'hello');
-  console.log('this middleware runs');
-
   return response;
 }
