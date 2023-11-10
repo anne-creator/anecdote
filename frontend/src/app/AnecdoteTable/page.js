@@ -116,7 +116,9 @@ export default function main() {
 
                     <td className={classes}>
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {s3Url}
+                        <Link href={s3Url}>
+                          <Button>Download Story</Button>
+                        </Link>
                       </Typography>
                     </td>
                   </tr>

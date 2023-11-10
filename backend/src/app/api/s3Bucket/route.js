@@ -29,6 +29,7 @@ export async function POST(req) {
   const linkParams = {
     Bucket: S3_BUCKET_NAME,
     Key: taskId,
+    Expires: 31536000,
   };
 
   try {
