@@ -2,7 +2,6 @@
 import Head from 'next/head';
 import { UserButton, SignedOut, SignedIn } from '@clerk/nextjs';
 import Link from 'next/link';
-import Header from './components/Header';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
