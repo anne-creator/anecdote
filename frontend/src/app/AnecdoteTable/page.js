@@ -17,16 +17,24 @@ import {
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import url from './../../config.js';
+import { useUser } from '@clerk/nextjs';
+import Link from 'next/link';
 
 export default function main() {
+  //auth
+  const { isLoaded, isSignedIn, user } = useUser();
+  if (!isLoaded || !isSignedIn) {
+    return null;
+  }
+
   const [tableRows, setTableRows] = useState([]);
   const TABLE_HEAD = ['Word List', 'Status', 'Story Link'];
   const router = useRouter();
 
+  console.log(user.id);
   const getTableRows = async () => {
     axios
-      .get(`${url}/api/AnecdoteTable`)
+      .get(`${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable?userId=${user.id}`)
       .then((response) => {
         setTableRows(response.data.res.Items);
       })
@@ -108,7 +116,9 @@ export default function main() {
 
                     <td className={classes}>
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {s3Url}
+                        <Link href={s3Url}>
+                          <Button>Download Story</Button>
+                        </Link>
                       </Typography>
                     </td>
                   </tr>

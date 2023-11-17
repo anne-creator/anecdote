@@ -3,47 +3,63 @@ import axios from 'axios';
 import { useState } from 'react';
 const uuid = require('uuid');
 import { useRouter } from 'next/navigation';
-import { Button, Typography, Card, Input, Textarea, Checkbox } from '@material-tailwind/react';
-import URL from '../../../config';
-console.log(URL);
+import { Button, Typography, Card, Textarea } from '@material-tailwind/react';
+import { useUser } from '@clerk/nextjs';
+
 export default function addItem() {
+  //auth
+  const { isLoaded, isSignedIn, user } = useUser();
+  if (!isLoaded || !isSignedIn) {
+    return null;
+  }
   const [inputData, setInputData] = useState('');
-  const [task, setTask] = useState('');
-  const [ifSuccess, setIfSuccess] = useState(false);
-  const [story, setStory] = useState('');
-  console.log(inputData);
   const router = useRouter();
 
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  };
-
-  // Define optional config for the request (headers, query parameters, etc.)
-
   const handleSubmit = async (e) => {
-    // e.preventDefualt();
-    console.log('ran here');
     try {
-      const response = await axios.get(`http://localhost:3008/api/syncGPT?wordList=${inputData}`);
-      const story = await response.data;
-      const res = await axios.post(`http://localhost:3008/api/AnecdoteTable`, {
-        TaskId: uuid.v4(),
-        status: ifSuccess,
+      let status = 'SUBMITTED';
+      let story = '';
+      let link = '';
+      const taskId = uuid.v4();
+      //generate story from chatGPT
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_URL}/api/syncGPT?wordList=${inputData}`,
+        );
+        story = await response.data;
+        status = 'COMPLETED';
+      } catch (err) {
+        console.log('ChatGPT called failed, inserting the metadata anyways.');
+      }
+
+      //put story to s3 bucket and returned a downloadable link
+      try {
+        const bucketRes = await axios.post(`${process.env.NEXT_PUBLIC_URL}/api/s3Bucket`, {
+          taskId,
+          story,
+        });
+        link = await bucketRes.data;
+        console.log(`link is: ${link}`);
+      } catch (err) {
+        console.log(`s3 err: ${err}`);
+      }
+
+      //put new task to db table
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable`, {
+        TaskId: taskId,
+        userId: user.id,
+        status: status,
         createdTime: Date.now(),
         lastUpdatedTime: Date.now(),
         wordList: inputData,
-        s3Url: story,
+        s3Url: link,
       });
-      console.log(story);
       console.log('succefully post');
     } catch (err) {
+      console.log(err);
       alert('story generator failed, re-try it');
-      console.log(err.response.data);
     }
-
-    router.push('/');
+    router.push('/AnecdoteTable');
   };
 
   return (

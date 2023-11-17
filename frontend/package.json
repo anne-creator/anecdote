@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.26.2",
     "@heroicons/react": "^2.0.18",
     "@material-tailwind/react": "^2.1.2",
     "axios": "^1.5.1",

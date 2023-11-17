@@ -18,17 +18,7 @@ export async function GET() {
 
   try {
     const res = await docClient.get(params).promise();
-    return Response.json(
-      story,
-      //   {
-      //   status: 200,
-      //   headers: {
-      //     'Access-Control-Allow-Origin': '*',
-      //     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      //     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      //   },
-      // }
-    );
+    return Response.json(story);
   } catch {
     return Response.error("can't get item from the database");
   }

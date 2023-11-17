@@ -1,17 +1,25 @@
 /** list table api server */
-// import { request } from 'http';
 import { docClient } from '../../../dbconfig.js';
 const TABLE_NAME = 'AnecdoteTask';
 
 // list table
-export async function GET() {
+export async function GET(request) {
+  const userId = request.nextUrl.searchParams.get('userId');
+  if (!userId) Response.error('userId is empty');
   const params = {
     TableName: TABLE_NAME,
+    IndexName: 'userId',
+    FilterExpression: 'userId = :u',
+    ExpressionAttributeValues: {
+      ':u': userId,
+    },
   };
+
   try {
     const res = await docClient.scan(params).promise();
     return Response.json({ res });
-  } catch {
+  } catch (err) {
+    console.log(err);
     return Response.error('Internal Server Error');
   }
 }
@@ -35,14 +43,15 @@ export async function DELETE(request) {
   }
 }
 
-// This is not being used right now
 export async function POST(request) {
-  const { TaskId, status, createdTime, lastUpdatedTime, wordList, s3Url } = await request.json();
-  console.log(TaskId);
+  const { TaskId, userId, status, createdTime, lastUpdatedTime, wordList, s3Url } =
+    await request.json();
+  console.log('get called');
   const params = {
     TableName: TABLE_NAME,
     Item: {
       TaskId,
+      userId,
       status: 'success',
       createdTime,
       lastUpdatedTime,
