@@ -2,13 +2,10 @@
 import Link from 'next/link';
 import { UserButton, SignedOut, SignedIn, auth } from '@clerk/nextjs';
 
-const Header = async () => {
-  // const { userId } = auth();
-
+const Header = () => {
   return (
     <>
       <nav className="flex justify-end items-center">
-        {/* <UserButton afterSignOutUrl="/" /> */}
         <SignedOut>
           <Link href="/sign-up">
             <div>
