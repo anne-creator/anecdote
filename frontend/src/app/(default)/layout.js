@@ -1,21 +1,36 @@
-import './../globals.css';
+'use client';
+
 import { Inter } from 'next/font/google';
-import { ClerkProvider } from '@clerk/nextjs';
-import Header from '@/components/Header';
+// import Header from '@/app/components/Header';
+import Header from '@/app/components/ui/header';
+
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+import PageIllustration from '@/app/components/page-illustration';
+import Footer from '@/app/components/ui/footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }) {
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      disable: 'phone',
+      duration: 600,
+      easing: 'ease-out-sine',
+    });
+  });
+
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <Header />
-          <main className=" w-full bg-blue-100">
-            <div>{children}</div>
-          </main>
-        </body>
-      </html>
-    </ClerkProvider>
+    <div className={inter.className}>
+      <Header />
+
+      <main className="grow">
+        <PageIllustration />
+        {children}
+      </main>
+    </div>
   );
 }
