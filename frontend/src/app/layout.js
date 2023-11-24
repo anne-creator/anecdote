@@ -93,7 +93,7 @@ export default function RootLayout({ children }) {
     >
       <html lang="en">
         <body
-          className={`${inter.variable} ${architects_daughter.variable} font-inter antialiased bg-gray-900 text-gray-200 tracking-tight`}
+          className={`${inter.variable} ${architects_daughter.variable} font-inter antialiased bg-gradient-to-br from-[#1c0431] to-[#101d46] text-gray-200 tracking-tight`}
         >
           <div className="flex flex-col min-h-screen overflow-hidden">{children}</div>
         </body>

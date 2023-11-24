@@ -23,12 +23,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero />
-      <Process />
-      <FeaturesHome />
-      <Tabs />
-      <Target />
+      {/* <Process /> */}
+      {/* <FeaturesHome /> */}
+      {/* <Tabs /> */}
+      {/* <Target /> */}
       {/* <News /> */}
-      <Newsletter />
+      {/* <Newsletter /> */}
       <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-500">
         <div className="bg-white p-8 rounded-xl shadow-lg">
           <h1 className="text-2xl font-bold mb-4 text-blue-500">Hello, Welcome to Anectdote</h1>

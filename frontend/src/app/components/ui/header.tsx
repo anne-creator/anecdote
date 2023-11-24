@@ -1,7 +1,7 @@
 import Link from 'next/link'
 // import Dropdown from '@/app/components/utils/dropdown'/
 import MobileMenu from './mobile-menu'
-import { UserButton, SignedOut, SignedIn, auth } from '@clerk/nextjs';
+import { UserButton, SignedOut, SignedIn } from '@clerk/nextjs';
 
 
 export default function Header() {
