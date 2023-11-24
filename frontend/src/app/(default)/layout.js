@@ -1,8 +1,8 @@
 'use client';
 
 import { Inter } from 'next/font/google';
-import Header from '@/app/components/Header';
-// import Header from '@/app/components/ui/header';
+// import Header from '@/app/components/Header';
+import Header from '@/app/components/ui/header';
 
 import { useEffect } from 'react';
 import AOS from 'aos';

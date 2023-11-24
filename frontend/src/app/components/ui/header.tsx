@@ -1,6 +1,8 @@
 import Link from 'next/link'
-import Dropdown from '@/app/components/utils/dropdown'
+// import Dropdown from '@/app/components/utils/dropdown'/
 import MobileMenu from './mobile-menu'
+import { UserButton, SignedOut, SignedIn, auth } from '@clerk/nextjs';
+
 
 export default function Header() {
   return (
@@ -20,8 +22,8 @@ export default function Header() {
           {/* Desktop navigation */}
           <nav className="hidden md:flex md:grow">
             {/* Desktop menu links */}
-            <ul className="flex grow justify-end flex-wrap items-center">
-              <li>
+            {/* <ul className="flex grow justify-end flex-wrap items-center"> */}
+            {/* <li>
                 <Link href="/features" className="text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out">
                   Features
                 </Link>
@@ -40,11 +42,11 @@ export default function Header() {
                 <Link href="/about" className="text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out">
                   About us
                 </Link>
-              </li>
-              {/* 1st level: hover */}
-              <Dropdown title="Support">
-                {/* 2nd level: hover */}
-                <li>
+              </li> */}
+            {/* 1st level: hover */}
+            {/* <Dropdown title="Support"> */}
+            {/* 2nd level: hover */}
+            {/* <li>
                   <Link href="/contact" className="font-medium text-sm text-gray-400 hover:text-purple-600 flex py-2 px-4 leading-tight">
                     Contact us
                   </Link>
@@ -60,23 +62,33 @@ export default function Header() {
                   </Link>
                 </li>
               </Dropdown>
-            </ul>
+            </ul> */}
 
             {/* Desktop sign in links */}
             <ul className="flex grow justify-end flex-wrap items-center">
-              <li>
-                <Link
-                  href="/signin"
-                  className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
-                >
-                  Sign in
-                </Link>
-              </li>
-              <li>
-                <Link href="/signup" className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
-                  Sign up
-                </Link>
-              </li>
+              <SignedOut>
+
+                <li>
+                  <Link
+                    href="/sign-in"
+                    className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
+                  >
+                    Sign in
+                  </Link>
+
+                </li>
+                <li>
+                  <Link href="/sign-up" className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
+                    Sign up
+                  </Link>
+                </li>
+
+              </SignedOut>
+              <SignedIn>
+                <div>
+                  <UserButton afterSignOutUrl="/" />
+                </div>
+              </SignedIn>
             </ul>
           </nav>
 
@@ -84,6 +96,6 @@ export default function Header() {
 
         </div>
       </div>
-    </header>
+    </header >
   )
 }
