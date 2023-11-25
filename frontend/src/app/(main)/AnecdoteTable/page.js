@@ -48,7 +48,7 @@ export default function main() {
     <>
       <section>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
-          {/* Illustration behind hero content */}
+          {/* Illustration behind  content */}
           <div
             className="absolute left-0 bottom-0 -ml-20 hidden lg:block pointer-events-none"
             aria-hidden="true"
@@ -84,7 +84,7 @@ export default function main() {
               />
             </svg>
           </div>
-          <Card className="h-full w-full">
+          <Card className="mt-20 h-full w-full">
             <CardHeader floated={false} shadow={false} className="rounded-none">
               <div className="mb-8 flex items-center justify-between gap-8">
                 <div>
@@ -93,13 +93,15 @@ export default function main() {
                   </Typography>
                 </div>
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                  <Button
-                    onClick={() => router.push('/addItem')}
-                    className="flex items-center gap-3"
-                    size="sm"
-                  >
-                    Add Word List
-                  </Button>
+                  <div data-aos="fade-up" data-aos-delay="400">
+                    <Button
+                      onClick={() => router.push('/addItem')}
+                      className="flex items-center gap-3 bg-purple-900 hover:bg-purple-800"
+                      size="sm"
+                    >
+                      Add Word List
+                    </Button>
+                  </div>
                 </div>
               </div>
             </CardHeader>
@@ -154,7 +156,12 @@ export default function main() {
                         <td className={classes}>
                           <Typography variant="small" color="blue-gray" className="font-normal">
                             <Link href={s3Url}>
-                              <Button>Download Story</Button>
+                              <Button
+                                className="flex items-center  bg-purple-400 hover:bg-purple-800"
+                                size="sm"
+                              >
+                                Download Story
+                              </Button>
                             </Link>
                           </Typography>
                         </td>

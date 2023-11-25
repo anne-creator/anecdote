@@ -1,6 +1,11 @@
 import VideoThumb from '@/public/images/hero-image-01.jpg'
 import ModalVideo from '@/app/components/modal-video'
 import { UserButton, SignedOut, SignedIn, auth } from '@clerk/nextjs';
+import { Button } from "@material-tailwind/react";
+
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export default function HeroHome() {
   return (
@@ -33,8 +38,15 @@ export default function HeroHome() {
                 </div>
               </SignedOut>
               <SignedIn>
-                <div data-aos="fade-up" data-aos-delay="400">
-                  <a className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" href="/addItem">Let's generate a new story </a>
+                <div className="flex gap-3">
+
+                  <div data-aos="fade-up" data-aos-delay="400">
+                    <a className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0 rounded-lg" href="/addItem">Let's Generate A New Story</a>
+
+                  </div>
+                  <div data-aos="fade-up" data-aos-delay="400">
+                    <a className="btn text-white border-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0 rounded-lg" href="/AnecdoteTable">See Old Stories</a>
+                  </div>
                 </div>
               </SignedIn>
 

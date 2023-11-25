@@ -69,7 +69,7 @@ export default function RootLayout({ children }) {
             backgroundColor: 'transparent',
           },
           formButtonPrimary: {
-            backgroundColor: '#FFFFFF30',
+            backgroundColor: '#130162',
             fontSize: '12px',
             textTransform: 'none',
             '&:focus': {
