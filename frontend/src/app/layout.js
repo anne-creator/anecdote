@@ -1,7 +1,6 @@
 import './css/style.css';
 
 import { Inter, Architects_Daughter } from 'next/font/google';
-
 import { ClerkProvider } from '@clerk/nextjs';
 import { shadesOfPurple } from '@clerk/themes';
 

@@ -21,7 +21,7 @@ export default function PostTags({ tags }: {
 
   return (
     <ul className="flex flex-wrap text-xs font-medium -m-1">
-      {tags.map((tag, tagIndex) => (
+      {tags?.map((tag, tagIndex) => (
         <li key={tagIndex} className="m-1">
           <Link href="#" className={`inline-flex text-center py-1 px-3 rounded-full transition duration-150 ease-in-out ${tagColor(tag)}`}>
             {tag}
