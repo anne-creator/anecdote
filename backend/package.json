@@ -23,6 +23,7 @@
     "@types/node": "20.8.0",
     "@types/react": "18.2.24",
     "autoprefixer": "latest",
+    "encoding": "^0.1.13",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "postcss": "latest",
