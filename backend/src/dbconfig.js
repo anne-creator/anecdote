@@ -7,6 +7,7 @@ AWS.config.update({
   aws_access_key_id: process.env.AWS_ACCESS_KEY_ID,
   aws_secret_access_key: process.env.AWS_SECRET_ACCESS_KEY,
 });
+console.log(process.env.AWS_ACCESS_KEY_ID);
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 const s3 = new AWS.S3();
