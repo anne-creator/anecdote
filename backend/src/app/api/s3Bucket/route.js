@@ -4,7 +4,7 @@
  * Output: a downloadable string link
  */
 
-import { s3, S3_BUCKET_NAME } from '../../../dbconfig.js';
+import { s3, S3_BUCKET_NAME } from '../../../awsConfig.js';
 
 export async function POST(req) {
   const { story, taskId } = await req.json();

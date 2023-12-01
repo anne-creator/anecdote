@@ -1,4 +1,4 @@
-import { docClient, TABLE_NAME } from '../../../../dbconfig';
+import { docClient, TABLE_NAME } from '../../../../awsConfig';
 import { headers } from 'next/headers';
 
 // get an item from dynamodb table

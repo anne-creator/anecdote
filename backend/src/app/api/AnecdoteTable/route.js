@@ -1,5 +1,5 @@
 /** list table api server */
-import { docClient } from '../../../dbconfig.js';
+import { docClient } from '../../../awsConfig.js';
 const TABLE_NAME = 'AnecdoteTask';
 
 // list table

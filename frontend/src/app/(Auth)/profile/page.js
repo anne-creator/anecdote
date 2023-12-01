@@ -1,7 +1,10 @@
 import { UserProfile } from '@clerk/nextjs';
 
 const profile = () => {
-  return <>
-  <UserProfile />
-</>
+  return (
+    <>
+      <UserProfile />
+    </>
+  );
+};
 export default profile;
