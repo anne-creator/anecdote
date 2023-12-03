@@ -174,7 +174,6 @@ export default function main() {
           </Card>
         </div>
       </section>
-      )
     </>
   );
 }
