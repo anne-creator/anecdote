@@ -31,18 +31,23 @@ export default function main() {
   const TABLE_HEAD = ['Word List', 'Status', 'Story Link'];
   const router = useRouter();
 
+  console.log(`userid: ${user.id}`);
+  console.log(`url: ${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable?userId=${user.id}`);
+
   const getTableRows = async () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable?userId=${user.id}`)
       .then((response) => {
+        console.log('res is: ');
+        console.log(response);
         setTableRows(response.data.res.Items);
       })
       .catch((error) => {
         console.log(`fail to get table rows with error: ${error}`);
       });
   };
-
-  useEffect(() => getTableRows, []);
+  useEffect(() => getTableRows(), []);
+  console.log(tableRows);
 
   return (
     <>

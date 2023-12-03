@@ -14,12 +14,12 @@ export default function Tabs() {
   const tabs = useRef<HTMLDivElement>(null)
 
   const heightFix = () => {
-	  if ( tabs.current && tabs.current.parentElement ) tabs.current.parentElement.style.height = `${tabs.current.clientHeight}px`
+    if (tabs.current && tabs.current.parentElement) tabs.current.parentElement.style.height = `${tabs.current.clientHeight}px`
   }
 
   useEffect(() => {
     heightFix()
-  }, [])    
+  }, [])
 
   return (
     <section>
