@@ -34,19 +34,43 @@ export default function main() {
   console.log(`userid: ${user.id}`);
   console.log(`url: ${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable?userId=${user.id}`);
 
-  const getTableRows = async () => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable?userId=${user.id}`)
-      .then((response) => {
-        console.log('res is: ');
-        console.log(response);
-        setTableRows(response.data.res.Items);
-      })
-      .catch((error) => {
-        console.log(`fail to get table rows with error: ${error}`);
-      });
-  };
-  useEffect(() => getTableRows(), []);
+  // const getTableRows = async () => {
+  //   axios
+  //     .get(`${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable?userId=${user.id}`)
+  //     .then((response) => {
+  //       console.log('res is: ');
+  //       console.log(response);
+  //       setTableRows(response.data.res.Items);
+  //     })
+  //     .catch((error) => {
+  //       console.log(`fail to get table rows with error: ${error}`);
+  //     });
+  // };
+  useEffect(() => {
+    async function getTableRows() {
+      axios
+        .get(`${process.env.NEXT_PUBLIC_URL}/api/AnecdoteTable?userId=${user.id}`)
+        .then((response) => {
+          console.log('res is: ');
+          console.log(response);
+          setTableRows(response.data.res.Items);
+        })
+        .catch((error) => {
+          console.log(`fail to get table rows with error: ${error}`);
+        });
+    }
+    getTableRows();
+  }, []);
+
+  //example
+  // useEffect(() => {
+  //   async function fetchAuthStatus() {
+  //     const { data: result } = await axiosApp.get('/auth-status'); // axiosApp = same thing as axios
+  //     setAuth(result);
+  //   }
+  //   fetchAuthStatus();
+  // }, []);
+
   console.log(tableRows);
 
   return (

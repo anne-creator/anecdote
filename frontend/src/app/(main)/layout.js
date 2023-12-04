@@ -7,7 +7,6 @@ import Header from '@/app/components/ui/header';
 import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
 import PageIllustration from '@/app/components/page-illustration';
 
 const inter = Inter({ subsets: ['latin'] });

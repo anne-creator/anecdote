@@ -94,7 +94,6 @@ export default function addItem() {
                 <Button onClick={handleSubmit} size="lg" color="gray" className="mt-6" fullWidth>
                   generate a story
                 </Button>
-                {/* </form> */}
               </div>
             </Card>
           </div>
