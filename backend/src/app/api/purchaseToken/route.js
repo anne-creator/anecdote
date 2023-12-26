@@ -21,7 +21,7 @@ export async function GET(request) {
       automatic_tax: { enabled: true },
     });
     // return Response.redirect({ url: session.url, status: 303 });
-    return Response.json('success');
+    return Response.json({ url: session.url, status: 303 });
   } catch (error) {
     console.log('error!');
     return Response.error('Internal Server Error');
