@@ -44,8 +44,10 @@ import React from 'react';
 import { Button, Typography, Card, Textarea } from '@material-tailwind/react';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function purchaseToken() {
+  const router = useRouter();
   const test_publishable_key =
     'pk_test_51ORdFyGTkm7su90R4Okd6YJG8yDNMfmcWf50B2ITaF1rnVGL4evAisCcJcl52OAjKkhO9ZgfsLuzr3nmDUv9PYDm007zOGkjrK';
   const stripePromise = loadStripe(test_publishable_key);
@@ -66,7 +68,8 @@ export default function purchaseToken() {
     try {
       const res = axios.get(`${process.env.NEXT_PUBLIC_URL}/api/purchaseToken`);
       console.log('succefully connect to backend Stripe');
-      console.log(res);
+      console.log((await res).data.url);
+      router.push((await res).data.url);
     } catch (err) {
       console.log(err);
       alert('failed connect to backend Stripe, re-try it');

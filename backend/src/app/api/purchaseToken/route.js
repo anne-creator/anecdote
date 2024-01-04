@@ -16,13 +16,12 @@ export async function GET(request) {
         },
       ],
       mode: 'payment',
-      success_url: `http://localhost:3000/api/purchaseToken?success=true`,
-      cancel_url: `http://localhost:3000/api/purchaseToken?canceled=true`,
+      success_url: `http://localhost:3006/purchaseToken?success=true`,
+      cancel_url: `http://localhost:3006/purchaseToken?canceled=true`,
       automatic_tax: { enabled: true },
     });
-    // return Response.redirect({ url: session.url, status: 303 });
     console.log(session);
-    return Response.json({ url: session.url, status: 303 });
+    return Response.json({ url: session.url });
   } catch (error) {
     console.log('error!');
     return Response.error('Internal Server Error');
