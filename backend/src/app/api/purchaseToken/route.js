@@ -16,8 +16,8 @@ export async function GET(request) {
         },
       ],
       mode: 'payment',
-      success_url: `http://localhost:3006/purchaseToken?success=true`,
-      cancel_url: `http://localhost:3006/purchaseToken?canceled=true`,
+      success_url: `https://anecdote-frontend.vercel.app/purchaseToken?success=true`,
+      cancel_url: `https://anecdote-frontend.vercel.app/purchaseToken?canceled=true`,
       automatic_tax: { enabled: true },
     });
     console.log(session);
