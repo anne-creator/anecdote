@@ -12,7 +12,7 @@ export async function GET(request) {
         {
           // Use price ID as the input, price IDs are generated
           // from the Stripe dashboard when creating a product
-          price: 'price_1OReBZGTkm7su90RtCyIFhb4',
+          price: '1',
           quantity: 1,
         },
       ],
