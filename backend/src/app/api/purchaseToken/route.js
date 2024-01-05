@@ -1,7 +1,8 @@
 import Stripe from 'stripe';
 
 const test_secret_key =
-  'sk_test_51ORdFyGTkm7su90ROlXdSPi0j5Mz4Ip3Upih6Mm6GSw50tFVFrkq0wlZFgFSwcwsjxixwA3mYYvR7dLYmrj0Agh9004Pcf36Yp';
+  // 'sk_test_51ORdFyGTkm7su90ROlXdSPi0j5Mz4Ip3Upih6Mm6GSw50tFVFrkq0wlZFgFSwcwsjxixwA3mYYvR7dLYmrj0Agh9004Pcf36Yp';
+  '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'; //real key
 const stripe = new Stripe(test_secret_key);
 
 export async function GET(request) {
